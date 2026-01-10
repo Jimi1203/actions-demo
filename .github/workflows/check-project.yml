@@ -3,7 +3,6 @@ name: 项目健康检查
 on:
   push:
     branches: [main]
-  # 添加手动触发
   workflow_dispatch:
 
 jobs:
@@ -11,38 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      # 1. 获取代码
       - name: 检出代码
         uses: actions/checkout@v4
       
-      # 2. 显示项目信息
-      - name: 显示项目结构
-        run: |
-          echo "=== 项目概况 ==="
-          echo "文件总数: $(find . -type f | wc -l)"
-          echo "文件夹数: $(find . -type d | wc -l)"
-          echo "项目大小: $(du -sh .)"
-          
-      # 3. 检查常见项目文件
-      - name: 检查配置文件
-        run: |
-          echo "=== 配置文件检查 ==="
-          [ -f "package.json" ] && echo "✅ 找到 package.json (Node.js项目)" || echo "��� 没有 package.json"
-          [ -f "requirements.txt" ] && echo "✅ 找到 requirements.txt (Python项目)" || echo "��� 没有 requirements.txt"
-          [ -f "Dockerfile" ] && echo "✅ 找到 Dockerfile" || echo "��� 没有 Dockerfile"
-          [ -f ".gitignore" ] && echo "✅ 找到 .gitignore" || echo "⚠️  没有 .gitignore"
-          
-      # 4. 检查文件类型统计
-      - name: 文件类型统计
-        run: |
-          echo "=== 文件类型统计 ==="
-          echo "Markdown文件: $(find . -name "*.md" | wc -l)"
-          echo "YAML文件: $(find . -name "*.yml" -o -name "*.yaml" | wc -l)"
-          echo "JavaScript文件: $(find . -name "*.js" | wc -l)"
-          echo "Python文件: $(find . -name "*.py" | wc -l)"
-          
-      # 5. 生成报告
-      - name: 生成检查报告
-        run: |
-          echo "=== 检查完成 ==="
-          date
+      - name: 显示信息
+        run: echo "项目检查开始"
+        
+      - name: 查看文件
+        run: ls -la
