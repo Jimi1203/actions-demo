@@ -4,5 +4,5 @@ jobs:
   测试任务:
     runs-on: ubuntu-latest
     steps:
-      - name: 第一步
+      - name: 显示消息
         run: echo "��� 成功运行"
