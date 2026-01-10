@@ -1,8 +1,0 @@
-name: 简单测试
-on: [push]
-jobs:
-  hello:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 打招呼
-        run: echo "��� 这次一定成功"
