@@ -1,8 +1,0 @@
-name: 测试
-on: [push]
-jobs:
-  测试任务:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 显示消息
-        run: echo "��� 成功运行"
