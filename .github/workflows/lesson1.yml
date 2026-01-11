@@ -1,0 +1,22 @@
+name: 第一课：条件判断
+
+on: [push]
+
+jobs:
+  learn-if:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 步骤1：总是执行
+      - name: 总是执行这一步
+        run: echo "这是第一步，永远会执行"
+      
+      # 步骤2：只有主分支才执行
+      - name: 仅主分支执行
+        if: github.ref == 'refs/heads/main'
+        run: echo "这是主分支！重要操作"
+      
+      # 步骤3：非主分支才执行
+      - name: 非主分支执行
+        if: github.ref != 'refs/heads/main'
+        run: echo "这是开发分支，检查就好"
