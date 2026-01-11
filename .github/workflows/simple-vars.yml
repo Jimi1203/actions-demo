@@ -1,0 +1,14 @@
+name: 简单查看变量
+
+on: [push]
+
+jobs:
+  display:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "=== 核心变量 ==="
+          echo "1. 分支: $GITHUB_REF"
+          echo "2. 仓库: $GITHUB_REPOSITORY"
+          echo "3. 工作流: $GITHUB_WORKFLOW"
+          echo "4. SHA: $GITHUB_SHA"
