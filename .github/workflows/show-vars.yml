@@ -1,0 +1,29 @@
+name: 查看GitHub变量
+
+on: [push]
+
+jobs:
+  show:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 显示所有变量
+        run: |
+          echo "=== GitHub 提供的变量 ==="
+          echo "分支引用: ${{ github.ref }}"
+          echo "分支名称: ${{ github.ref_name }}"
+          echo "完整仓库: ${{ github.repository }}"
+          echo "仓库所有者: ${{ github.repository_owner }}"
+          echo "仓库名: ${{ github.event.repository.name }}"
+          echo "触发事件: ${{ github.event_name }}"
+          echo "提交SHA: ${{ github.sha }}"
+          echo "工作流名称: ${{ github.workflow }}"
+          echo "运行ID: ${{ github.run_id }}"
+          echo "运行编号: ${{ github.run_number }}"
+          
+      - name: 显示事件详情
+        run: |
+          echo "=== 事件详情 ==="
+          echo "提交者: ${{ github.event.head_commit.author.name }}"
+          echo "提交信息: ${{ github.event.head_commit.message }}"
+          echo "修改文件数: ${{ github.event.head_commit.modified | length }}"
