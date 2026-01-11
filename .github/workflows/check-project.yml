@@ -4,6 +4,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      详细模式:
+        description: '是否显示详细信息'
+        required: false
+        default: 'false'
 
 jobs:
   analyze:
@@ -13,8 +18,31 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
       
-      - name: 显示信息
-        run: echo "项目检查开始"
-        
-      - name: 查看文件
-        run: ls -la
+      - name: 基本信息
+        run: |
+          echo "=== 项目检查开始 ==="
+          echo "运行时间: $(date)"
+          echo "触发方式: ${{ github.event_name }}"
+          
+      - name: 项目概况
+        run: |
+          echo "=== 项目概况 ==="
+          echo "文件总数: $(find . -type f | wc -l)个"
+          echo "目录数: $(find . -type d | wc -l)个"
+          echo "总大小: $(du -sh . | cut -f1)"
+          
+      - name: 文件类型统计
+        run: |
+          echo "=== 文件类型 ==="
+          echo "YAML文件: $(find . -name "*.yml" -o -name "*.yaml" | wc -l)个"
+          echo "Markdown: $(find . -name "*.md" | wc -l)个"
+          echo "配置文件: $(find . -name "*.json" -o -name "*.toml" -o -name "*.ini" | wc -l)个"
+          
+      - name: 详细检查（可选）
+        if: ${{ github.event.inputs.详细模式 == 'true' }}
+        run: |
+          echo "=== 详细模式 ==="
+          echo "最近修改:"
+          git log --oneline -3
+          echo "所有文件:"
+          find . -type f | sort
